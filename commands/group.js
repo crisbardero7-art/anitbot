@@ -80,4 +80,33 @@ async function handleGroupOptions(sock, msg, command, args, isGroup, reply) {
     }
 }
 
-module.exports = { handleGroupOptions };
+async function handleSpam(sock, msg, args, reply) {
+    if (!args[0] || isNaN(args[0])) {
+        return await reply('⚠️ Uso incorrecto. Ejemplo: `.spam 10 Hola` o `.spam 10 @persona`');
+    }
+
+    const count = parseInt(args[0]);
+    if (count > 50) return await reply('⚠️ El límite máximo de spam es 50 para evitar bloqueos.');
+    
+    // El texto es todo lo que sigue después del número
+    let text = args.slice(1).join(' ');
+    
+    // Si no hay texto pero hay menciones, usamos la mención
+    const mentionedJid = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
+    
+    if (!text && mentionedJid.length === 0) {
+        return await reply('⚠️ Debes escribir un texto o mencionar a alguien.');
+    }
+
+    for (let i = 0; i < count; i++) {
+        await sock.sendMessage(msg.key.remoteJid, { 
+            text: text || `@${mentionedJid[0].split('@')[0]}`,
+            mentions: mentionedJid
+        });
+        // Pequeño retraso para no saturar
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+}
+
+module.exports = { handleGroupOptions, handleSpam };
+
