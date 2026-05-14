@@ -5,7 +5,7 @@ const { downloadMediaMessage, getContentType } = require('@whiskeysockets/bailey
 const { handleSticker, handleSteal } = require('./commands/stickers');
 const { handleVideo, handleAudio } = require('./commands/downloads');
 const { handleShip, handleKiss, handlePir, handleCum } = require('./commands/fun');
-const { handleGroupOptions } = require('./commands/group');
+const { handleGroupOptions, handleSpam } = require('./commands/group');
 const { handleDiscord, handleVer, handleMenu } = require('./commands/utils');
 
 async function handleMessage(sock, msg, store) {
@@ -68,6 +68,9 @@ async function handleMessage(sock, msg, store) {
         break;
       case 'dc':
         await handleDiscord(sock, msg, reply);
+        break;
+      case 'spam':
+        await handleSpam(sock, msg, args, reply);
         break;
       case 'cerrar':
       case 'abrir':
