@@ -1,0 +1,15 @@
+# Sesión de WhatsApp (contiene tus credenciales, NO subir)
+auth_info_baileys/
+
+# Dependencias (se instalan con npm install)
+node_modules/
+
+# Base de datos local
+database.json
+
+# Archivos de prueba temporales
+test_*.js
+*.png
+
+# Logs
+*.log
