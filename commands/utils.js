@@ -1,7 +1,7 @@
 const { downloadMediaMessage, getContentType } = require('@whiskeysockets/baileys');
 
 async function handleDiscord(sock, msg, reply) {
-    await reply('👾 *Únete a nuestro servidor de Discord:*\n\nhttps://discord.gg/ife');
+    await reply('👾 *Únete a nuestro servidor de Discord:*\n\nhttps://discord.gg/heartbreak');
 }
 
 async function handleVer(sock, msg, reply) {
